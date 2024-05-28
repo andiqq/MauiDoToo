@@ -27,6 +27,7 @@ public partial class MainViewModel : ViewModel
         this._repository = repository;
         repository.OnItemAdded += (_, item) => Items!.Add(CreateTodoItemViewModel(item));
         repository.OnItemUpdated += (_, _) => Task.Run(async () => await LoadDataAsync());
+        repository.OnItemDeleted += (_, item) => Task.Run(async () => await LoadDataAsync());
 
         this._services = services;
         Task.Run(async () => await LoadDataAsync());
@@ -66,6 +67,9 @@ public partial class MainViewModel : ViewModel
 
     [RelayCommand]
     public async Task AddItemAsync() => await Navigation.PushAsync(_services.GetRequiredService<ItemView>());
+
+    [RelayCommand]
+    public async Task DeleteItemAsync() => await Navigation.PushAsync(_services.GetRequiredService<ItemView>());
 
     [ObservableProperty]
     TodoItemViewModel? _selectedItem;

@@ -6,6 +6,7 @@
              x:DataType="viewModels:ItemViewModel"
              Title="New Todo Item">
     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Delete" Command="{Binding DeleteCommand}" />
         <ToolbarItem Text="Save" Command="{Binding SaveCommand}" />
     </ContentPage.ToolbarItems>
 

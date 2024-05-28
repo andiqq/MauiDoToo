@@ -25,4 +25,11 @@ public partial class ItemViewModel : ViewModel
         await Navigation.PopAsync();
     }
 
+    [RelayCommand]
+    public async Task DeleteAsync()
+    {
+        await repository.DeleteAsync(Item);
+        await Navigation.PopAsync();
+    }
+
 }
