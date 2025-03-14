@@ -10,5 +10,5 @@ public class TodoItem
     public string Title { get; set; } = string.Empty;
     public bool Completed { get; set; }
 
-    public DateOnly Due { get; set; }
+    public DateTime Due { get; set; }
 }

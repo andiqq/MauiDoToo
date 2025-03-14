@@ -74,7 +74,7 @@ public class TodoItemRepository : ITodoItemRepository
             await _connection.InsertAsync(new TodoItem()
             {
                 Title = "Welcome to DoToo",
-                Due = DateOnly.FromDateTime(DateTime.Today)
+                Due = DateTime.Today 
             });
         }
     }

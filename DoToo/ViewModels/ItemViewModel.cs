@@ -14,7 +14,7 @@ public partial class ItemViewModel : ViewModel
     public ItemViewModel(ITodoItemRepository repository)
     {
         this.repository = repository;
-        Item = new TodoItem() { Due = DateOnly.FromDateTime(DateTime.Now.AddDays(1)) };
+        Item = new TodoItem() { Due = DateTime.Now.AddDays(1) };
     }
 
     [RelayCommand]
