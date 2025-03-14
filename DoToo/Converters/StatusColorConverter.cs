@@ -7,6 +7,7 @@ internal class StatusColorConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
+        if (Application.Current == null) return Color.FromRgb(211, 211, 211);
         return (Color)Application.Current!.Resources[(bool)value! ? "CompletedColor" : "ActiveColor"];
     }
 

@@ -2,7 +2,7 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using DoToo.Models;
+using Models;
 
 public partial class TodoItemViewModel : ViewModel
 {
@@ -10,15 +10,14 @@ public partial class TodoItemViewModel : ViewModel
 
     public event EventHandler ItemStatusChanged = null!;
 
-    [ObservableProperty]
-    TodoItem _item;
+    [ObservableProperty] private TodoItem item;
 
     public string StatusText => Item.Completed ? "Reactivate" : "Completed";
 
     [RelayCommand]
-    void ToggleCompleted()
+    private void ToggleCompleted()
     {
         Item.Completed = !Item.Completed;
-        ItemStatusChanged?.Invoke(this, new EventArgs());
+        ItemStatusChanged?.Invoke(this, EventArgs.Empty);
     }
 }

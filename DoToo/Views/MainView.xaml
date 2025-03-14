@@ -9,8 +9,9 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:StatusColorConverter x:Key="statusColorConverter" />
-            <converters:FilterTextConverter x:Key="filterTextConverter" />
+            <converters:StatusColorConverter x:Key="StatusColorConverter" />
+            <converters:FilterTextConverter x:Key="FilterTextConverter" />
+            <converters:FilterTextColorConverter x:Key="FilterTextColorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -18,25 +19,26 @@
         <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
     </ContentPage.ToolbarItems>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
+    <Grid RowDefinitions="auto,*" >
+        
         <Button Style="{DynamicResource FilterButton}" 
-                Text="{Binding ShowAll,Converter={StaticResource filterTextConverter}, StringFormat='Filter: {0}'}"
+                Text="{Binding ShowAll,Converter={StaticResource FilterTextConverter}, StringFormat='Filter: {0}'}"
+                BackgroundColor="{Binding ShowAll,Converter={StaticResource StatusColorConverter}}"
+                TextColor="{Binding ShowAll,Converter={StaticResource FilterTextColorConverter}}"
                 Command="{Binding ToggleFilterCommand}">
-            <Button.Triggers>
-               <DataTrigger TargetType="Button" Binding="{Binding ShowAll}" Value="True">
-                    <Setter Property="BackgroundColor" Value="{DynamicResource CompletedColor}"/>
-                    <Setter Property="TextColor" Value="White" />
-                </DataTrigger>
-                <DataTrigger TargetType="Button" Binding="{Binding ShowAll}" Value="False">
-                    <Setter Property="BackgroundColor" Value="{DynamicResource ActiveColor}"/>
-                    <Setter Property="TextColor" Value="Black" />
-                </DataTrigger>
-            </Button.Triggers>
+            
+            <!-- instead of converters it is also possible to use data triggers -->
+            <!-- it is necessary to call a data trigger for both statuses i.e. True / False -->
+            <!-- <Button.Triggers> -->
+            <!--    <DataTrigger TargetType="Button" Binding="{Binding ShowAll}" Value="True"> -->
+            <!--         <Setter Property="BackgroundColor" Value="{DynamicResource CompletedColor}"/>  -->
+            <!--         <Setter Property="TextColor" Value="White" /> -->
+            <!--     </DataTrigger> -->
+            <!--     <DataTrigger TargetType="Button" Binding="{Binding ShowAll}" Value="False"> -->
+            <!--         <Setter Property="BackgroundColor" Value="{DynamicResource ActiveColor}"/>  -->
+            <!--         <Setter Property="TextColor" Value="Black" /> -->
+            <!--     </DataTrigger> -->
+            <!-- </Button.Triggers> -->
         </Button>
 
 
@@ -50,22 +52,16 @@
                             <MenuItem Text="{Binding StatusText}" Command="{Binding ToggleCompletedCommand}" />
                         </ViewCell.ContextActions>
 
-                        <Grid Padding="15,10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="10" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-
+                        <Grid Padding="15,10" 
+                              RowDefinitions="*,*" 
+                              ColumnDefinitions="10, *">
+                            
                             <BoxView Grid.RowSpan="2"
-                                     Color="{Binding Item.Completed,Converter={StaticResource statusColorConverter}}" />
-                            <Label Grid.Column="1" Padding="5,0,0,0"
+                                     Color="{Binding Item.Completed,Converter={StaticResource StatusColorConverter}}" />
+                            <Label Grid.Row="0" Grid.Column="1" Padding="5,0,0,0"
                                    Text="{Binding Item.Title}" FontSize="Medium" />
                             <Label Grid.Column="1" Grid.Row="1" VerticalTextAlignment="End" Padding="5,0,0,0"
-                                   Text="{Binding Item.Due, StringFormat='{0:MMMM d, yyyy}'}" FontSize="Micro" />
+                                   Text="{Binding Item.Id}" FontSize="Micro" />
                             <Label Grid.Column="1" Grid.Row="1" HorizontalTextAlignment="End" Text="Completed" 
                                    IsVisible="{Binding Item.Completed}" FontSize="Micro"
                                    TextColor="{StaticResource CompletedColor}"/>

@@ -2,31 +2,30 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using DoToo.Models;
-using DoToo.Repositories;
+using Models;
+using Repositories;
 
 public partial class ItemViewModel : ViewModel
 {
     private readonly ITodoItemRepository repository;
 
-    [ObservableProperty]
-    TodoItem item;
+    [ObservableProperty] private TodoItem item;
 
     public ItemViewModel(ITodoItemRepository repository)
     {
         this.repository = repository;
-        Item = new TodoItem() { Due = DateTime.Now.AddDays(1) };
+        Item = new TodoItem() { Due = DateOnly.FromDateTime(DateTime.Now.AddDays(1)) };
     }
 
     [RelayCommand]
-    public async Task SaveAsync()
+    private async Task SaveAsync()
     {
         await repository.AddOrUpdateAsync(Item);
         await Navigation.PopAsync();
     }
 
     [RelayCommand]
-    public async Task DeleteAsync()
+    private async Task DeleteAsync()
     {
         await repository.DeleteAsync(Item);
         await Navigation.PopAsync();
