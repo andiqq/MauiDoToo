@@ -1,6 +1,6 @@
 namespace DoToo.Views;
 
-using DoToo.ViewModels;
+using ViewModels;
 
 public partial class MainView
 {

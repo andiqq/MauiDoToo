@@ -26,19 +26,6 @@
                 BackgroundColor="{Binding ShowAll,Converter={StaticResource StatusColorConverter}}"
                 TextColor="{Binding ShowAll,Converter={StaticResource FilterTextColorConverter}}"
                 Command="{Binding ToggleFilterCommand}">
-            
-            <!-- instead of converters it is also possible to use data triggers -->
-            <!-- it is necessary to call a data trigger for both statuses i.e. True / False -->
-            <!-- <Button.Triggers> -->
-            <!--    <DataTrigger TargetType="Button" Binding="{Binding ShowAll}" Value="True"> -->
-            <!--         <Setter Property="BackgroundColor" Value="{DynamicResource CompletedColor}"/>  -->
-            <!--         <Setter Property="TextColor" Value="White" /> -->
-            <!--     </DataTrigger> -->
-            <!--     <DataTrigger TargetType="Button" Binding="{Binding ShowAll}" Value="False"> -->
-            <!--         <Setter Property="BackgroundColor" Value="{DynamicResource ActiveColor}"/>  -->
-            <!--         <Setter Property="TextColor" Value="Black" /> -->
-            <!--     </DataTrigger> -->
-            <!-- </Button.Triggers> -->
         </Button>
 
 
